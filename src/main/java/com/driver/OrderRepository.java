@@ -55,14 +55,14 @@ public class OrderRepository {
     }
 
     public Integer getOrderCountByPartnerId(String partnerId){
-//        Integer count = null;           //need to see
-//        if(partnerOrderHashMap.containsKey(partnerId)){
-//            count = partnerOrderHashMap.get(partnerId).size();
-//        }
-//        return count;
-        int countOfOrder;
-        countOfOrder = deliveryPartnerHashMap.get(partnerId).getNumberOfOrders();
-        return countOfOrder;
+        Integer count = null;           //need to see
+        if(partnerOrderHashMap.containsKey(partnerId)){
+            count = partnerOrderHashMap.get(partnerId).size();
+        }
+        return count;
+//        int countOfOrder;
+//        countOfOrder = deliveryPartnerHashMap.get(partnerId).getNumberOfOrders();
+//        return countOfOrder;
     }
 
     public List<String> getOrdersByPartnerId(String partnerId){
@@ -74,22 +74,22 @@ public class OrderRepository {
     }
 
     public List<String> getAllOrders(){
-//        List<String> allOrders = new ArrayList<>();
-//        for(String orderId : orderHashMap.keySet()){
-//            allOrders.add(orderId);
-//        }
-//        return allOrders;
-        return new ArrayList<>(orderHashMap.keySet());
+        List<String> allOrders = new ArrayList<>();
+        for(String orderId : orderHashMap.keySet()){
+            allOrders.add(orderId);
+        }
+        return allOrders;
+        //return new ArrayList<>(orderHashMap.keySet());
     }
 
     public Integer getCountOfUnassignedOrders(){
-//        int count =0;
-//        for(Order order : orderHashMap.values()){
-//            String orderId = order.getId();
-//            if(!orderPartnerPairMap.containsKey(orderId)) count++;
-//        }
-//        return count;
-        return orderHashMap.size()-orderPartnerPairMap.size();
+        int count =0;
+        for(Order order : orderHashMap.values()){
+            String orderId = order.getId();
+            if(!orderPartnerPairMap.containsKey(orderId)) count++;
+        }
+        return count;
+        //return orderHashMap.size()-orderPartnerPairMap.size();
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String tyme, String partnerId){
