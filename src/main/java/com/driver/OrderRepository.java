@@ -56,7 +56,7 @@ public class OrderRepository {
     }
 
     public Integer getOrderCountByPartnerId(String partnerId){
-        Integer count = null;
+        Integer count = null;           //need to see
         if(partnerOrderHashMap.containsKey(partnerId)){
             count = partnerOrderHashMap.get(partnerId).size();
         }
@@ -72,21 +72,22 @@ public class OrderRepository {
     }
 
     public List<String> getAllOrders(){
-        List<String> allOrders = new ArrayList<>();
-        for(String orderId : orderHashMap.keySet()){
-            allOrders.add(orderId);
-        }
-        return allOrders;
+//        List<String> allOrders = new ArrayList<>();
+//        for(String orderId : orderHashMap.keySet()){
+//            allOrders.add(orderId);
+//        }
+//        return allOrders;
+        return new ArrayList<>(orderHashMap.keySet());
     }
 
     public Integer getCountOfUnassignedOrders(){
-        int count =0;
-        for(Order order : orderHashMap.values()){
-            String orderId = order.getId();
-            if(!orderPartnerPairMap.containsKey(orderId)) count++;
-        }
-        return count;
-        //return ordersMap.size()-orderPartnerPairMap.size();
+//        int count =0;
+//        for(Order order : orderHashMap.values()){
+//            String orderId = order.getId();
+//            if(!orderPartnerPairMap.containsKey(orderId)) count++;
+//        }
+//        return count;
+        return orderHashMap.size()-orderPartnerPairMap.size();
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String tyme, String partnerId){
@@ -111,13 +112,13 @@ public class OrderRepository {
     }
 
     public void deletePartnerById(String  partnerId){
-        //remove delivery Partner from deliveryPartnerHashMap
-        deliveryPartnerHashMap.remove(partnerId);
         //delete orders Assigned to that deliveryPartner from partnerOrderHashMap
         List<String> ordersList = partnerOrderHashMap.get(partnerId);
         for(String orderId : ordersList){
             orderPartnerPairMap.remove(orderId);
         }
+        //delete it from partnerOrderMap
+        partnerOrderHashMap.remove(partnerId);
         //delete order Partner Pair from deliveryPartner Hashmap
         deliveryPartnerHashMap.remove(partnerId);
     }
@@ -129,7 +130,6 @@ public class OrderRepository {
             String partnerId = orderPartnerPairMap.get(orderId);
             orderPartnerPairMap.remove(orderId);
             partnerOrderHashMap.get(partnerId).remove(orderId);
-
             deliveryPartnerHashMap.get(partnerId).setNumberOfOrders(partnerOrderHashMap.get(partnerId).size());
         }
     }
