@@ -21,8 +21,7 @@ public class OrderRepository {
     }
 
     public void addOrder(Order order){
-        String orderId = order.getId();
-        orderHashMap.put(orderId, order);
+        orderHashMap.put(order.getId(), order);
     }
 
     public void addPartner(String partnerId){
@@ -43,7 +42,7 @@ public class OrderRepository {
         orderPartnerPairMap.put(orderId, partnerId);
 
         //update no of orders by the delivery Partner
-        DeliveryPartner deliveryPartner = new DeliveryPartner(partnerId);
+        DeliveryPartner deliveryPartner =deliveryPartnerHashMap.get(partnerId);
         deliveryPartner.setNumberOfOrders(orderlistOfPartner.size());
     }
 
@@ -56,11 +55,14 @@ public class OrderRepository {
     }
 
     public Integer getOrderCountByPartnerId(String partnerId){
-        Integer count = null;           //need to see
-        if(partnerOrderHashMap.containsKey(partnerId)){
-            count = partnerOrderHashMap.get(partnerId).size();
-        }
-        return count;
+//        Integer count = null;           //need to see
+//        if(partnerOrderHashMap.containsKey(partnerId)){
+//            count = partnerOrderHashMap.get(partnerId).size();
+//        }
+//        return count;
+        int countOfOrder;
+        countOfOrder = deliveryPartnerHashMap.get(partnerId).getNumberOfOrders();
+        return countOfOrder;
     }
 
     public List<String> getOrdersByPartnerId(String partnerId){
